@@ -1,0 +1,18 @@
+## UNCHECKED ##
+version: "3.9"
+
+services:
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-eiko-dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app/eiko                        # Monte tout le dossier Eiko (toi-même)
+      - ./requirements.txt:/app/requirements.txt
+    working_dir: /app/eiko
+    ## DEVMODE, in a production version everything is done through main.py and the MakeFile
+    ## For now, UVICORN is in reload mode
+    command: ["python", "efastapi.py"]

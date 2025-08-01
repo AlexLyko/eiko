@@ -1,0 +1,15 @@
+{
+            "johndoe": {
+                "username": "johndoe",
+                "full_name": "John Doe_secret",
+                "email": "jd@jd.eiko",
+                "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW"
+                },
+                "u2": {
+                "username": "u2",
+                "full_name": "u2_m2",
+                "email": "u2@jd.eiko",
+                "hashed_password": "$2b$12$HOKejF6MaK/V4b5fOOTAG.P/XqVdgXvPuGIqp/2X9Pap3SI37JXjS"
+                }
+                
+}

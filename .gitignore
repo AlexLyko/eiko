@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# FastAPI / Uvicorn logs
+*.log
+
+# Docker artifacts
+*.pid
+*.tar
+*.img
+*.container
+__docker_build__/
+docker-compose.override.yml
+
+# Bytecode cache
+.pytest_cache/
+.cache/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Ignore build/output
+build/
+dist/
+
+# Optional: ignore compiled asset files inside app
+assets/__pycache__/
+
+# Ignore all content in uploaded/ and log/, but keep the folders
+uploaded/*
+!uploaded/.gitkeep
+
+log/*
+!log/.gitkeep
