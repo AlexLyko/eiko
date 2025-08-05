@@ -3,7 +3,7 @@ from utils.smallfuncs import *
 from  gis.gisserie import GisSerie
 from  gis.reference import Reference
 from  utils.eikofastapi import EikoFastApi
-import uvicorn
+from utils.parsedclass import ParsedScenario
 
 """
 The main script uses the CLI Click framework to allow dev and admin user to launch BASH or Powershell invites.
@@ -22,11 +22,13 @@ python main.py reference -fp ./tests/datasets/series/georef-france-commune-mille
 @click.option("-rvf", "--reference_version_format", help="For references, format of the reference. Between date, year or string.")
 @click.option("-ap", "--api_port", help="Fast API listening port")
 @click.option("-ah", "--api_host", help="Fast API host")
+@click.option("-sc", "--scenario", help="JSON scenario path")
 @click.argument('arg') # is the command
 def cli_test(arg,
              file_path, key, value_name, key_expression, value_expression, 
              reference_version, reference_version_format,
-             api_port, api_host):
+             api_port, api_host, 
+             scenario):
     match arg :
         case "gis_serie": # Will try to build a GisSerie dataset
             gis_serie = GisSerie(file_path, value_name, key_expression , value_expression)
@@ -38,6 +40,9 @@ def cli_test(arg,
             else: reference.log_data(10)
         case "api": # Will launch the api in production mode (for dev mode, check for efastapi.py file)
             EikoFastApi().run(api_port, api_host)
+        case "scenario": # Will launch the JSON scenario parser
+            ParsedScenario(scenario)
+
 
 if __name__ == "__main__":
     cli_test()

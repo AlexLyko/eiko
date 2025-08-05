@@ -55,7 +55,7 @@ Fork it, copy it, use parts or all functionalities. The main objective is provid
 Go and check the [achievements file](https://github.com/AlexLyko/eiko/blob/main/README_KPI.md).
 
 
-## 101 : how to use it
+## Installation and (quick) overview
 
 ### Install
 Create a virtual Python3 environment and activate it.
@@ -195,3 +195,11 @@ For now, examples are given in the [analysis notebook](https://github.com/AlexLy
 
 ### Using the FastAPI / Swagger UI service
  API UI is accessible at [http:127.0.0.1:8000/docs](http:127.0.0.1:8000/docs), or the APP_* parameters if you updated them.
+
+### Using JSON scenario
+Scenarios chaining class instance and executing functions are available.
+```bash
+python main.py scenario -sc assets/test.json
+```
+By default, "assets/test.json" is used. Results can be exported with the "export()" function. Currenlty, only the unique identifier of the execution is given.  
+Values can be passed through different steps, using variables. Their name begins with "#".

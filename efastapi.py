@@ -14,6 +14,7 @@ from utils.oauth_github import *
 from utils.oauth_local import *  
 from utils.oauth_jwt import *
 #from utils.oauth_keycloak import *
+from utils.parsedclass import ParsedScenario
 
 
 OAUTH_MODE = get_confparam("OAUTH_MODE")
@@ -59,9 +60,19 @@ async def valid_access_token(token: str = Depends(oauth2_scheme)):
 async def generate_pwd(expression_to_encode: str = "secret"):
     crypt_context = get_crypt_context()
     return Item(
-        name="encoded_expression",
-        description="using production crypto context of Eiko",
-        value=crypt_context.hash(expression_to_encode)
+        name= "encoded_expression",
+        description= "using production crypto context of Eiko",
+        value= crypt_context.hash(expression_to_encode)
+    )
+
+@app.post("/Scenario/", dependencies=[Depends(valid_access_token)])
+async def scenario(jsonfile: UploadFile):
+    out_file_path = await upload_file(jsonfile)
+    ps= ParsedScenario(out_file_path)
+    return Item(
+        name="Scenario output",
+        description="Output of the execution of the scenario",
+        value= ps.export()
     )
 
 @app.post("/GisSerie/", dependencies=[Depends(valid_access_token)])

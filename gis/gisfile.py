@@ -6,6 +6,7 @@ class GisFile():
     col_key = None
     col_default_value = None
     dataset = None
+    version= None
 
     def log_data(self, maxrows = 1000, col=None):
         if self.dataset is None: 
@@ -64,6 +65,10 @@ class GisFile():
                 break
             i_row += 1
         print("================================================================")
+    
+    def test_it(self, maxrows = 1000, col=None):
+        self.show_data(maxrows, col)
+        return {"is": "a", "correct": "return"}
 
     # For now : only encountered error, such as brackets
     def clean_col(self, col_to_clean, tokens_to_avoid = ["['","']"]):
