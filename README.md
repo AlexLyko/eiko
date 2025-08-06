@@ -67,7 +67,11 @@ Go through the requirements file.
 python -m venv ./venv
 /.venv/Scripts/activate.bat
 ```
-Or just use [Ctrl] + [Shift] + [P] for VSCode users.
+For VSCode users, use [Ctrl] + [Shift] + [P] and try
+```ps1
+.venv/Scripts/Activate.ps1  
+```
+each time you want to set a new environment.
 
 Then :
 ```ps1
@@ -202,4 +206,5 @@ Scenarios chaining class instance and executing functions are available.
 python main.py scenario -sc assets/test.json
 ```
 By default, "assets/test.json" is used. Results can be exported with the "export()" function. Currenlty, only the unique identifier of the execution is given.  
-Values can be passed through different steps, using variables. Their name begins with "#".
+Values can be passed through different steps, using variables. Their name begins with "#".  
+Launching a scenario with the ParsedClass, served by the http.../Scenario FastAPI API with the upload of a JSON file, will return a JSON log file with an uid. This uid can be used in the http.../ScenarioOutput?uid=... FastAPI API, to retrieve a ZIP file containing both logs and detailled outputs of the scenario execution (typically, new datasets or images).

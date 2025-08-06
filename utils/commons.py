@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from utils.smallfuncs import *
+from typing import Dict, Any
 
 class Token(BaseModel):
     access_token: str
@@ -21,6 +22,18 @@ class Item(BaseModel):
     name: str
     description: str | None = None
     value:  str | None = None
+
+class Error(BaseModel):
+    type: str
+    level: str | None = "INFO"
+    description:  str | None = None
+    position: str | None = None
+
+class ScLog(BaseModel):
+    results: list[Item] | None = None
+    scenario: Dict[str, Any]
+    errors: list[Error] | None = None
+    endpoint: str | None = None
     
 
 def get_user(db, username: str):

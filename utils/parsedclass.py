@@ -1,5 +1,6 @@
 
 from utils.smallfuncs import *
+from utils.commons import ScLog
 import importlib
 import json
 
@@ -64,10 +65,14 @@ class ParsedStep():
 class ParsedScenario():
     json_data= None
     VERBOSE = False
-    uniq_id = None
+    uid = None
+    ENDPOINT_SCENARIO_PATH = None
+    export_path= None
 
     def __init__(self, jsonpath="assets/test.json", exec= True):
-        self.uniq_id= random_str(size= 12)
+        self.uid= random_str(size= 12)
+        self.ENDPOINT_SCENARIO_PATH = get_confparam("ENDPOINT_SCENARIO_PATH")
+        self.export_path= f'{self.ENDPOINT_SCENARIO_PATH}/{self.uid}'
         with open(jsonpath) as f:
             self.json_data = json.load(f)
         if "verbose" in self.json_data["params"]: self.VERBOSE= True
@@ -88,5 +93,12 @@ class ParsedScenario():
                 vars = ps.get_vars()  
             i += 1 
     def get_json(self): return self.json_data
+
     def export(self):
-        return self.uniq_id # TODO: chose a strategy to implement for result downloading
+        sc_log = ScLog(
+            scenario= self.json_data,
+            endpoint= f'{self.uid}'
+        )
+        as_write_in_file(f'{self.export_path}/log.json',sc_log.model_dump_json(indent=4))
+        zip(f'{self.export_path}/', f'{self.export_path}')
+        return sc_log

@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import Depends, FastAPI, UploadFile, Query
 from fastapi_pagination import Page, add_pagination, paginate
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from typing import Optional
 from typing import Optional
 from gis.gisserie import GisSerie
@@ -66,14 +66,16 @@ async def generate_pwd(expression_to_encode: str = "secret"):
     )
 
 @app.post("/Scenario/", dependencies=[Depends(valid_access_token)])
-async def scenario(jsonfile: UploadFile):
+async def scenario(jsonfile: UploadFile)-> ScLog:
     out_file_path = await upload_file(jsonfile)
     ps= ParsedScenario(out_file_path)
-    return Item(
-        name="Scenario output",
-        description="Output of the execution of the scenario",
-        value= ps.export()
-    )
+    return  ps.export()
+
+@app.get("/ScenarioOutput/", dependencies=[Depends(valid_access_token)])
+async def scenario_output(uid: str):
+    response = FileResponse(f'{get_confparam("ENDPOINT_SCENARIO_PATH")}/{uid}.zip', media_type='application/octet-stream',filename="archive.zip")
+    #response.headers["Content-Disposition"] = "attachment; archive.zip"
+    return response
 
 @app.post("/GisSerie/", dependencies=[Depends(valid_access_token)])
 async def gis_serie(file: UploadFile, key_expression, value_expression, key="key", dfvalue="dfv")-> Page[ao_GisFile]:

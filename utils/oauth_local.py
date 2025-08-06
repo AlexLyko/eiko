@@ -69,9 +69,3 @@ def oauthlocal_set(app, oauth2_scheme):
                 return False
             return user      
     return oauth2_scheme
-
-
-
-
-
-

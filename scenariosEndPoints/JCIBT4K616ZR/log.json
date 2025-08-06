@@ -1,0 +1,29 @@
+{
+    "results": null,
+    "scenario": {
+        "params": {
+            "verbose": "True"
+        },
+        "1": {
+            "class": "gis.GisSerie",
+            "objectArgs": {
+                "file_path": "tests/datasets/series/georef-france-commune-millesime.shp",
+                "col_key": "com_code",
+                "col_default_value": "com_code",
+                "keyexpression": "com_code",
+                "valueexpression": "com_code"
+            },
+            "objectRef": "#gisSerie_1",
+            "function": "test_it",
+            "functionArgs": {
+                "maxrows": 10
+            },
+            "functionRef": "#gisSerie_test_it_1"
+        },
+        "2": {
+            "class": "#gisSerie_1"
+        }
+    },
+    "errors": null,
+    "endpoint": "JCIBT4K616ZR"
+}
